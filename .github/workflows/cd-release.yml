@@ -13,6 +13,10 @@ jobs:
     name: Release git tag
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Read Pushed Tag
         id: tag
         uses: GRESB/action-git-tag@main
