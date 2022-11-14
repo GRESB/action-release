@@ -30,6 +30,7 @@ If the PR comment is found it will be updated, otherwise a new one is created wi
 ## Usage
 
 The default `secrets.GITHUB_TOKEN` is able to create the release and comment on the pull request.
+The generation of the release changelog requires a full checkout of the repository.
 
 To create pull request comments, the action needs a template under `.github/templates/tag-comment.md`, with the
 following variables.
@@ -63,6 +64,10 @@ jobs:
     name: Release git tag
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Read Pushed Tag
         id: tag
         uses: GRESB/action-git-tag@main
@@ -100,6 +105,10 @@ jobs:
     name: Release git tag
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Read Pushed Tag
         id: tag
         uses: GRESB/action-git-tag@main
@@ -120,5 +129,3 @@ jobs:
 
               ```some-container-image:${{ steps.tag.outputs.tag }}```
 ```
-
-### Create a release 
