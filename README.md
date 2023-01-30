@@ -27,6 +27,12 @@ If the PR comment is found it will be updated, otherwise a new one is created wi
 | workflow-run-url   | The url of the workflow run.                                                                | false    | '${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}' |
 | github-token       | The GitHub token used for creating the tag.                                                 | true     |                                                                                       |
 
+## Outputs
+
+| Output    | Description                    |
+|-----------|--------------------------------|
+| changelog | The changelog for the release. |
+
 ## Usage
 
 The default `secrets.GITHUB_TOKEN` is able to create the release and comment on the pull request.

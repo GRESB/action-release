@@ -24,6 +24,10 @@ inputs:
   github-token:
     description: 'The GitHub token used for creating the tag.'
     required: true
+outputs:
+  changelog:
+    description: 'The changelog for the release.'
+    value: ${{ steps.changelog.outputs.changelog }}
 runs:
   using: "composite"
   steps:
