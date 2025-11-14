@@ -33,11 +33,12 @@ runs:
   steps:
     - name: Generate changelog
       id: changelog
-      uses: metcalfc/changelog-generator@v4.0.1
+      uses: metcalfc/changelog-generator@v4
       with:
         myToken: ${{ inputs.github-token }}
+
     - name: Create Release
-      uses: softprops/action-gh-release@v0.1.14
+      uses: softprops/action-gh-release@v2
       with:
         name: Release ${{ inputs.name }}
         body: |
@@ -47,10 +48,9 @@ runs:
             ${{ steps.changelog.outputs.changelog }}
         draft: false
         prerelease: ${{ inputs.is-final == 'false' }}
-      env:
-        GITHUB_TOKEN: ${{ inputs.github-token }}
+        token: ${{ inputs.github-token }}
     - name: Find Tag Comment
-      uses: peter-evans/find-comment@v2
+      uses: peter-evans/find-comment@v4
       if: inputs.pr-number
       id: find-tag-comment
       with:
@@ -80,7 +80,7 @@ runs:
         release: ${{ inputs.name }}
         body: ${{ inputs.body }}
     - name: Render release comment template
-      uses: chuhlomin/render-template@v1.6
+      uses: chuhlomin/render-template@v1
       if: inputs.pr-number
       id: template
       with:
@@ -91,7 +91,7 @@ runs:
           body: "${{ steps.tag-comment.outputs.tag_comment_body }}"
           footer: "${{ steps.tag-comment.outputs.footer }}"
     - name: Create or update comment
-      uses: peter-evans/create-or-update-comment@v2
+      uses: peter-evans/create-or-update-comment@v5
       if: inputs.pr-number
       with:
         comment-id: ${{ steps.find-tag-comment.outputs.comment-id }}
